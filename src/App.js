@@ -1,25 +1,27 @@
 import { useEffect } from 'react';
 import './App.css';
 import db from "./firebase-config";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, where, query } from "firebase/firestore";
 
 function App() {
   const recipeRef = collection(db, "Recipes");
 
   useEffect(() => {
     const getRecipes = async () => {
-      const data = await getDocs(recipeRef);
-      console.log(data.docs.map((doc) => ({Name: doc.data().Name})));
+      const allRecipe = await getDocs(recipeRef);
+      const q = query(recipeRef, where("Vegan", "==", 1));
+      const allVegan = await getDocs(q);
+      console.log(allVegan.docs[0].data().Name);
     };
 
     getRecipes();
-  }, [recipeRef]);
+  }, [recipeRef]);534
 
   return (
     <div className="App">
       <header className="App-header">
         <p>
-          Hello!
+          Database works!
         </p>
       </header>
     </div>
