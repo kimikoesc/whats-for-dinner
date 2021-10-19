@@ -11,7 +11,20 @@ const reducer = combineReducers({
             newState = action.item;
         }
         return newState;
-    }
+    },
+    filterOption: (state = {vegan: false, pescatarian: false, flexible: false}, action) => {
+        let newState = Object.assign({}, state);
+        if (action.type === "updateFilter") {
+           if (action.key === "vegan") {
+            newState.vegan = !newState.vegan
+           } else if (action.key === "pescatarian") {
+            newState.pescatarian = !newState.pescatarian
+           } else if (action.key === "flexible") {
+            newState.flexible = !newState.flexible
+           }
+        }
+        return newState
+    },
 });
 
 const store = createStore(reducer);
