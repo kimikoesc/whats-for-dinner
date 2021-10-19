@@ -1,7 +1,8 @@
 import React from "react";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
-function Authentication() {
+function Authentication(props) {
+    const { setUsername } = props;
 
     const SignIn = () => {
         const provider = new GoogleAuthProvider();
@@ -11,6 +12,7 @@ function Authentication() {
             const credential = GoogleAuthProvider.credentialFromResult(result);
             const token = credential.accessToken;
             const user = result.user;
+            setUsername(user.displayName);
         }).catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
@@ -21,7 +23,10 @@ function Authentication() {
 
     return (
         <div>
-            <button onClick={SignIn}>Sign In with Google</button>
+            <header className="App-header">
+                 <h1>What's for dinner?</h1>
+                 <button onClick={SignIn}>Sign In with Google</button>
+            </header>
         </div>
     )
 }
