@@ -1,9 +1,13 @@
-import { useEffect } from 'react';
-import './App.css';
-import db from "./firebase-config";
+import { useEffect, useState } from 'react';
+import '../styles/App.css';
+import Authentication from './Authentication';
+import Home from './Home';
+import { app, db } from "../firebase-config";
+import { getAuth } from 'firebase/auth';
 import { collection, getDocs, where, query } from "firebase/firestore";
 
 function App() {
+  const [isUserSignedIn, setIsUserSignedIn] = useState(false);
   const recipeRef = collection(db, "Recipes");
 
   useEffect(() => {
@@ -17,12 +21,17 @@ function App() {
     getRecipes();
   }, [recipeRef]);
 
+  getAuth().onAuthStateChanged(user => {
+  return user ? setIsUserSignedIn(true) : setIsUserSignedIn(false)
+  })
+
   return (
     <div className="App">
       <header className="App-header">
-        <p>
-          Database works!
-        </p>
+        <h1>
+          What's for dinner?
+        </h1>
+        { isUserSignedIn ? (<Home/>) : (<Authentication/>) }
       </header>
     </div>
   );
