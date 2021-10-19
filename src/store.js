@@ -1,6 +1,13 @@
 import { createStore, combineReducers } from "redux";
 
 const reducer = combineReducers({
+    allRecipes: (state = [], action) => {
+    let newState = Object.assign([], state);
+    if (action.type === 'assignAllRecipe') {
+        newState = action.item
+    }
+    return newState;
+    },
     userData: (state = [], action) => {
         let newState = Object.assign([], state);
         if (action.type === 'add') {

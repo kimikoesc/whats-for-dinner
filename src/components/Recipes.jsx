@@ -1,17 +1,55 @@
 import { onSnapshot, collection } from '@firebase/firestore';
 import React, { useState, useEffect } from 'react'
 import db from "../firebase-config";
-import "../styles/Recipes.css"
+import "../styles/Recipes.css";
+import store from "../store"
 
 
 function Recipes() {
+    const [allRecipe, setAllRecipe] = useState([]);
     const [recipes, setRecipes] = useState([]);
+    const inventory = store.getState().userData;
+    const filters = store.getState().filterOption;
 
     useEffect(() => {
         onSnapshot(collection(db, "Recipes"), (snapshot) => {
-            setRecipes(snapshot.docs.map(doc => doc.data()));
+            setAllRecipe(snapshot.docs.map(doc => doc.data()));
         });
+        
+        const getPossibleRecipe = () => {
+            let result = [];
+            for (let i = 0; i < allRecipe.length; i++) {
+                if (filters.vegan === true && filters.pescatarian === true) {
+                    if (allRecipe[i].Ingredients.every(item => inventory.includes(item)) && allRecipe[i].Vegan === 1) {
+                        result.push(allRecipe[i])
+                    } 
+                }
+
+                if (filters.vegan === true && filters.pescatarian === false) {
+                    if (allRecipe[i].Ingredients.every(item => inventory.includes(item)) && allRecipe[i].Vegan === 1 && allRecipe[i].Pescatarian === 0) {
+                        result.push(allRecipe[i])
+                    } 
+                }
+
+                else {
+                    if (allRecipe[i].Ingredients.every(item => inventory.includes(item))) {
+                        result.push(allRecipe[i])
+                    } 
+                }
+ 
+            }
+            setRecipes(result);
+        };
+        getPossibleRecipe();
     }, []);
+
+    store.dispatch({
+        type: "assignAllRecipe",
+        item: allRecipe
+    })
+
+    console.log(recipes);
+    console.log(inventory);
 
     return (
         <div className="recipe">
