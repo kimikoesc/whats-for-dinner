@@ -1,4 +1,24 @@
 body {
   background-color: #ffffff;
   text-align: center;
+  margin: 0;
+}
+
+h1 {
+  color: white;
+}
+
+#title {
+  padding-left: 20px;
+}
+
+#logout {
+  margin-top: 50%;
+  border: none;
+  border-radius: 5px;
+  padding: 16px 32px;
+}
+
+button:hover {
+  background-color: #8d8d8d;
 }

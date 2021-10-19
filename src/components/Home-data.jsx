@@ -11,6 +11,11 @@ export const HomeData = [
         icon: <AiIcons.AiFillHome/>,
         iconClosed: <RiIcons.RiArrowDropDownFill/>,
         iconOpened: <RiIcons.RiArrowUpFill/>,
+        subNav: [
+            {
+                title: "Hello",
+            }
+        ]
     },
     {
         title: "Add Ingredients",
@@ -18,6 +23,11 @@ export const HomeData = [
         icon: <IoIcons.IoAddCircleOutline/>,
         iconClosed: <RiIcons.RiArrowDropDownFill/>,
         iconOpened: <RiIcons.RiArrowUpFill/>,
+        subNav: [
+            {
+                title: "Hello",
+            }
+        ]
     },
     {
         title: "Filter Search",
@@ -25,5 +35,10 @@ export const HomeData = [
         icon: <FaIcons.FaSearch/>,
         iconClosed: <RiIcons.RiArrowDropDownFill/>,
         iconOpened: <RiIcons.RiArrowUpFill/>,
+        subNav: [
+            {
+                title: "Hello",
+            }
+        ]
     },
 ]

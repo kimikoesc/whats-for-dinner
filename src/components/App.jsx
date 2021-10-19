@@ -14,6 +14,7 @@ function App() {
     if (user) {
       setIsUserSignedIn(true)
       setUsername(user.displayName);
+      console.log(user)
     } else {
       setIsUserSignedIn(false)
     }

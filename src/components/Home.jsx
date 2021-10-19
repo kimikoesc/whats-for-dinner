@@ -7,30 +7,33 @@ import * as AiIcons from "react-icons/ai";
 import { HomeData } from "./Home-data";
 import SubMenu from "./SubMenu";
 import { IconContext } from 'react-icons/lib';
+import '../styles/App.css';
 
 function Home(props) {
     const [sidebar, setSidebar] = useState(false);
+    const {username} = props;
 
-    // const logout = () => {
-    //     const auth = getAuth();
-    //     signOut(auth).then(() => {
-    //         console.log("Sign out successful")
-    //     })
-    //     .catch((err) => {
-    //         console.log("Something went wrong! Please try again.")
-    //     })
-    // }
-    {/* <h3> Hey there, {username}! </h3>
-    <button onClick={ logout }>Sign Out</button> */}
+    const logout = () => {
+        const auth = getAuth();
+        signOut(auth).then(() => {
+            console.log("Sign out successful")
+        })
+        .catch((err) => {
+            console.log("Something went wrong! Please try again.")
+        })
+    }
 
     const showSidebar = () => setSidebar(!sidebar);
 
     const Nav = styled.div`
         background: #15171c;
         height: 80px;
+        width: 100%;
         display: flex;
         justify-content: flex-start;
         align-items: center;
+        position: fixed;
+        z-index: 500;
     `
     const NavIcon = styled(Link)`
         margin-left: 2rem;
@@ -42,19 +45,17 @@ function Home(props) {
     `
     const SideBarNav = styled.nav`
         background: #15171c;
-        width: 250px;
+        width: 350px;
         height: 100vh;
         display: flex;
-        justify-content: center;
         position: fixed;
-        top: 0;
-        left: ${({ sidebar }) => (sidebar ? '0' : '-100%')};
+        left: ${({ sidebar }) => (sidebar ? '10' : '-100%')};
         transition: 350ms;
-        z-index: 10;
+        z-index: 500;
     `;
     
     const SideBarWrap = styled.div`
-        width: 100px;
+        width: 100%;
     `;
 
     return (
@@ -64,15 +65,18 @@ function Home(props) {
             <NavIcon to="#">
             <FaIcons.FaBars onClick={showSidebar}/>
             </NavIcon>
+            <h1 id="title">What's for dinner?</h1>
         </Nav>
         <SideBarNav sidebar={sidebar}>
             <SideBarWrap>
                 <NavIcon to="#">
                     <AiIcons.AiOutlineClose onClick={showSidebar}/>
                 </NavIcon>
+                <h1 id="greeting">Hello, {username}</h1>
                 {HomeData.map((item, index) => {
                     return <SubMenu item={item} key={index} />;
                 })}
+                <button id="logout" onClick={ logout }>Sign Out</button>
             </SideBarWrap>
         </SideBarNav>
        </IconContext.Provider>
