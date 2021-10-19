@@ -15,7 +15,7 @@ function App() {
     };
 
     getRecipes();
-  }, [recipeRef]);534
+  }, [recipeRef]);
 
   return (
     <div className="App">
