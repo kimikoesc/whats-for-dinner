@@ -11,7 +11,7 @@ import '../styles/App.css';
 
 function Home(props) {
     const [sidebar, setSidebar] = useState(false);
-    const {username} = props;
+    const { username } = props;
 
     const logout = () => {
         const auth = getAuth();
@@ -19,7 +19,7 @@ function Home(props) {
             console.log("Sign out successful")
         })
         .catch((err) => {
-            console.log("Something went wrong! Please try again.")
+            console.log(err)
         })
     }
 

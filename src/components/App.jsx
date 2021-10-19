@@ -9,7 +9,6 @@ import { getAuth } from 'firebase/auth';
 function App() {
   const [isUserSignedIn, setIsUserSignedIn] = useState(false);
   const [username, setUsername] = useState("");
-  const [userData, setUserData] = useState([]);
 
   getAuth().onAuthStateChanged(user => {
     if (user) {
@@ -19,7 +18,7 @@ function App() {
       setIsUserSignedIn(false)
     }
   })
-
+  
   if (isUserSignedIn) {
     return (
       <Router>
@@ -33,7 +32,7 @@ function App() {
     return (
       <Router>
         <div className="App">
-        <Authentication setUsername={setUsername} setUserData={setUserData}/>
+        <Authentication setUsername={setUsername}/>
         </div>
       </Router>
     )

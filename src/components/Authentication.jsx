@@ -1,10 +1,11 @@
 import React from "react";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { collection, addDoc, doc, setDoc, getDoc } from '@firebase/firestore';
+import { doc, setDoc, getDoc } from '@firebase/firestore';
 import db from "../firebase-config";
+import store from "../store";
 
 function Authentication(props) {
-    const { setUsername, setUserData } = props;
+    const { setUsername } = props;
 
     const SignIn = () => {
         const provider = new GoogleAuthProvider();
@@ -27,7 +28,10 @@ function Authentication(props) {
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
-           setUserData(docSnap.data().Inventory);
+           store.dispatch({
+               type: "assign",
+               item: docSnap.data().Inventory
+           })
         } else {
             const payload = {
                 Name: usr,
