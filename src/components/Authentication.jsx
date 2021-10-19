@@ -1,8 +1,10 @@
 import React from "react";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { collection, addDoc, doc, setDoc, getDoc } from '@firebase/firestore';
+import db from "../firebase-config";
 
 function Authentication(props) {
-    const { setUsername } = props;
+    const { setUsername, setUserData } = props;
 
     const SignIn = () => {
         const provider = new GoogleAuthProvider();
@@ -13,13 +15,27 @@ function Authentication(props) {
             const token = credential.accessToken;
             const user = result.user;
             setUsername(user.displayName);
+            getUserData(user.displayName);
+
         }).catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            const email = error.email;
-            const credential = GoogleAuthProvider.credentialFromError(error);
+            console.log(error)
         });
     }
+
+    const getUserData = async (usr) => {
+        const docRef = doc(db, "Users", usr);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+           setUserData(docSnap.data().Inventory);
+        } else {
+            const payload = {
+                Name: usr,
+                Inventory: []
+            }
+            await setDoc(docRef, payload);
+        } 
+    };
 
     return (
         <div>

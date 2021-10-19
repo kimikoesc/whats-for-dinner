@@ -3,6 +3,11 @@ import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
 import * as IoIcons from "react-icons/io5";
 import * as RiIcons from "react-icons/ri";
+import Inventory from "./Inventory";
+import AddIngredients from "./AddIngredients";
+import Filter from "./Filter";
+
+
 
 export const HomeData = [
     {
@@ -13,7 +18,7 @@ export const HomeData = [
         iconOpened: <RiIcons.RiArrowUpFill/>,
         subNav: [
             {
-                title: "Hello",
+                component: <Inventory/>,
             }
         ]
     },
@@ -25,7 +30,7 @@ export const HomeData = [
         iconOpened: <RiIcons.RiArrowUpFill/>,
         subNav: [
             {
-                title: "Hello",
+                component: <AddIngredients/>,
             }
         ]
     },
@@ -37,7 +42,7 @@ export const HomeData = [
         iconOpened: <RiIcons.RiArrowUpFill/>,
         subNav: [
             {
-                title: "Hello",
+                component: <Filter/>,
             }
         ]
     },

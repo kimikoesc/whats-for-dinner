@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { useState } from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
 import '../styles/App.css';
 import Authentication from './Authentication';
 import Home from './Home';
@@ -9,12 +9,12 @@ import { getAuth } from 'firebase/auth';
 function App() {
   const [isUserSignedIn, setIsUserSignedIn] = useState(false);
   const [username, setUsername] = useState("");
+  const [userData, setUserData] = useState([]);
 
   getAuth().onAuthStateChanged(user => {
     if (user) {
       setIsUserSignedIn(true)
       setUsername(user.displayName);
-      console.log(user)
     } else {
       setIsUserSignedIn(false)
     }
@@ -33,7 +33,7 @@ function App() {
     return (
       <Router>
         <div className="App">
-        <Authentication setUsername={setUsername}/>
+        <Authentication setUsername={setUsername} setUserData={setUserData}/>
         </div>
       </Router>
     )

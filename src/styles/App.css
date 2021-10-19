@@ -4,12 +4,13 @@ body {
   margin: 0;
 }
 
-h1 {
+#title {
   color: white;
+  padding-left: 20px;
 }
 
-#title {
-  padding-left: 20px;
+#greeting {
+  color: white;
 }
 
 #logout {
