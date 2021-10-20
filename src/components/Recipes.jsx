@@ -49,11 +49,6 @@ function Recipes(props) {
     getPossibleRecipe();
     }, [inventory, allRecipe]);
 
-    // store.dispatch({
-    //     type: "assignAllRecipe",
-    //     item: allRecipe
-    // })
-
     console.log(allRecipe);
     console.log(recipes);
 
