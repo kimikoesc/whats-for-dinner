@@ -1,3 +1,4 @@
+import { applyActionCode } from '@firebase/auth';
 import { initializeApp } from 'firebase/app';
 import { getFirestore } from "firebase/firestore";
 
@@ -12,4 +13,4 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 
-export default getFirestore();
+export default getFirestore(app);
