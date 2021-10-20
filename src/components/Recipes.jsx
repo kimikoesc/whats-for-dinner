@@ -43,15 +43,10 @@ function Recipes() {
         getPossibleRecipe();
     }, []);
 
-    console.log(filters)
-
     store.dispatch({
         type: "assignAllRecipe",
         item: allRecipe
     })
-
-    console.log(recipes);
-    console.log(inventory);
 
     return (
         <div className="recipe">

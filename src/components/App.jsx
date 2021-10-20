@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import '../styles/App.css';
 import Authentication from './Authentication';
@@ -23,24 +23,26 @@ function App() {
       setIsUserSignedIn(false)
     }
   })
+
+
+
+  console.log(store.getState().userData);
+  console.log(store.getState().filterOption);
+  console.log(store.getState().allRecipes)
   
   if (isUserSignedIn) {
     document.body.style.background = "white";
     return (
-      <Router>
         <div className="home">
         <Home username={username}/>
         <Recipes/>
         </div>
-      </Router>
     )
   } else {
     return (
-      <Router>
         <div className="welcome">
         <Authentication setUsername={setUsername}/>
         </div>
-      </Router>
     )
   }
 }

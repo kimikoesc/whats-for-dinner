@@ -35,7 +35,7 @@ function Home(props) {
         position: fixed;
         z-index: 500;
     `
-    const NavIcon = styled(Link)`
+    const NavIcon = styled.div`
         margin-left: 2rem;
         font-size: 2rem;
         height: 80px;
@@ -62,14 +62,14 @@ function Home(props) {
         <div className="Home">
         <IconContext.Provider value={{ color: '#fff' }}>
         <Nav>
-            <NavIcon to="#">
+            <NavIcon>
             <FaIcons.FaBars onClick={showSidebar}/>
             </NavIcon>
             <h1 id="title">What's for dinner?</h1>
         </Nav>
         <SideBarNav sidebar={sidebar}>
             <SideBarWrap>
-                <NavIcon to="#">
+                <NavIcon>
                     <AiIcons.AiOutlineClose onClick={showSidebar}/>
                 </NavIcon>
                 <h1 id="greeting">Hello, {username}</h1>
