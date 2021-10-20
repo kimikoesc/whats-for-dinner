@@ -1,19 +1,24 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { getAuth, signOut } from "firebase/auth";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
 import { HomeData } from "./Home-data";
 import SubMenu from "./SubMenu";
 import { IconContext } from 'react-icons/lib';
+import store from '../store'
 import '../styles/App.css';
+import { doc, setDoc, getDoc } from '@firebase/firestore';
+import db from "../firebase-config";
 
 function Home(props) {
     const [sidebar, setSidebar] = useState(false);
     const { username } = props;
 
     const logout = () => {
+        document.body.style.background = "background: rgb(63,94,251)";
+        document.body.style.background = "radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 83%)"; 
+
         const auth = getAuth();
         signOut(auth).then(() => {
             console.log("Sign out successful")
@@ -22,7 +27,7 @@ function Home(props) {
             console.log(err)
         })
     }
-
+    
     const showSidebar = () => setSidebar(!sidebar);
 
     const Nav = styled.div`

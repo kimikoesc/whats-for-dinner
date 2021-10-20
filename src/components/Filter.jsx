@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import store from '../store'
 
 function Filter() {
-    console.log(store.getState().filterOption)
     const addFilter = (e) => {
-        console.log(store.getState().filterOption)
         store.dispatch({
             type: "updateFilter",
             key: e.target.value,
         })
     };
+
+    useEffect(() => {
+        console.log(store.getState().filterOption)
+    });
 
     return (
         <div>

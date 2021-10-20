@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
 import '../styles/App.css';
 import Authentication from './Authentication';
 import Home from './Home';
@@ -14,7 +13,6 @@ function App() {
   getAuth().onAuthStateChanged(user => {
     if (user) {
       setIsUserSignedIn(true)
-      setUsername(user.displayName)
       store.dispatch({
         type: "assignUser",
         item: user.displayName
@@ -23,12 +21,6 @@ function App() {
       setIsUserSignedIn(false)
     }
   })
-
-
-
-  console.log(store.getState().userData);
-  console.log(store.getState().filterOption);
-  console.log(store.getState().allRecipes)
   
   if (isUserSignedIn) {
     document.body.style.background = "white";

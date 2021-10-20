@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { doc, setDoc, getDoc } from '@firebase/firestore';
 import db from "../firebase-config";
 import store from "../store";
+import { connect } from "react-redux";
+ 
+const mapStateToProps = (state) => {
+    return { userID: state.userID, userData: state.userData}
+};
 
 function Authentication(props) {
-    const { setUsername } = props;
+    const { setUsername, userID, userData } = props;
 
     const SignIn = () => {
         const provider = new GoogleAuthProvider();
@@ -16,30 +21,38 @@ function Authentication(props) {
             const token = credential.accessToken;
             const user = result.user;
             setUsername(user.displayName);
-            getUserData(user.displayName);
-
         }).catch((error) => {
             console.log(error)
         });
     }
 
-    const getUserData = async (usr) => {
-        const docRef = doc(db, "Users", usr);
-        const docSnap = await getDoc(docRef);
+    console.log(userID);
+    console.log(userData);
 
-        if (docSnap.exists()) {
-           store.dispatch({
-               type: "assign",
-               item: docSnap.data().Inventory
-           })
-        } else {
-            const payload = {
-                Name: usr,
-                Inventory: []
-            }
-            await setDoc(docRef, payload);
-        } 
-    };
+    useEffect(() => {
+        const getUserData = async (usr) => {
+            const docRef = doc(db, "Users", usr);
+            const docSnap = await getDoc(docRef);
+
+            if (docSnap.exists()) {
+            store.dispatch({
+                type: "assign",
+                item: docSnap.data().Inventory
+            })
+            } else {
+                const payload = {
+                    Name: usr,
+                    Inventory: []
+                }
+                await setDoc(docRef, payload);
+            } 
+        }
+        if (userID) {
+            getUserData(userID);
+        }
+    }, [userID]);
+
+    
 
     return (
         <div>
@@ -52,4 +65,4 @@ function Authentication(props) {
 }
 
 
-export default Authentication
+export default connect(mapStateToProps)(Authentication)

@@ -2,51 +2,60 @@ import { onSnapshot, collection } from '@firebase/firestore';
 import React, { useState, useEffect } from 'react'
 import db from "../firebase-config";
 import "../styles/Recipes.css";
-import store from "../store"
+import store from "../store";
+import { connect } from "react-redux";
 
+const mapStateToProps = (state) => {
+    return { userID: state.userID, inventory: state.userData, filters: state.filterOption}
+  };
 
-function Recipes() {
+function Recipes(props) {
     const [allRecipe, setAllRecipe] = useState([]);
     const [recipes, setRecipes] = useState([]);
-    const inventory = store.getState().userData;
-    const filters = store.getState().filterOption;
+    const { inventory, filters, userID } = props;
 
     useEffect(() => {
         onSnapshot(collection(db, "Recipes"), (snapshot) => {
             setAllRecipe(snapshot.docs.map(doc => doc.data()));
         });
         
-        const getPossibleRecipe = () => {
-            let result = [];
-            for (let i = 0; i < allRecipe.length; i++) {
-                if (filters.vegan === true && filters.pescatarian === true) {
-                    if (allRecipe[i].Ingredients.every(item => inventory.includes(item)) && allRecipe[i].Vegan === 1) {
-                        result.push(allRecipe[i])
-                    } 
-                }
-
-                if (filters.vegan === true && filters.pescatarian === false) {
-                    if (allRecipe[i].Ingredients.every(item => inventory.includes(item)) && allRecipe[i].Vegan === 1 && allRecipe[i].Pescatarian === 0) {
-                        result.push(allRecipe[i])
-                    } 
-                }
-
-                else {
-                    if (allRecipe[i].Ingredients.every(item => inventory.includes(item))) {
-                        result.push(allRecipe[i])
-                    } 
-                }
- 
-            }
-            setRecipes(result);
-        };
-        getPossibleRecipe();
     }, []);
 
-    store.dispatch({
-        type: "assignAllRecipe",
-        item: allRecipe
-    })
+    useEffect(() => {
+    const getPossibleRecipe = () => {
+        let result = [];
+        for (let i = 0; i < allRecipe.length; i++) {
+            if (filters.vegan === true && filters.pescatarian === true) {
+                if (allRecipe[i].Ingredients.every(item => inventory.includes(item)) && allRecipe[i].Vegan === 1) {
+                    result.push(allRecipe[i])
+                } 
+            }
+
+            if (filters.vegan === true && filters.pescatarian === false) {
+                if (allRecipe[i].Ingredients.every(item => inventory.includes(item)) && allRecipe[i].Vegan === 1 && allRecipe[i].Pescatarian === 0) {
+                    result.push(allRecipe[i])
+                } 
+            }
+
+            else {
+                if (allRecipe[i].Ingredients.every(item => inventory.includes(item))) {
+                    result.push(allRecipe[i])
+                } 
+            }
+
+        }
+        setRecipes(result);
+    };
+    getPossibleRecipe();
+    }, [inventory, allRecipe]);
+
+    // store.dispatch({
+    //     type: "assignAllRecipe",
+    //     item: allRecipe
+    // })
+
+    console.log(allRecipe);
+    console.log(recipes);
 
     return (
         <div className="recipe">
@@ -78,7 +87,7 @@ function Recipes() {
                             <a href={recipe.Link} target="_blank" rel="noreferrer">
                                 <div className="content">
                                     <p>Click here to get the recipe </p>
-                                </div>
+                                </div>   
                             </a>
                         </div>
                     </div>                    
@@ -87,5 +96,5 @@ function Recipes() {
         </div>
     )
 }
-
-export default Recipes
+ 
+export default connect(mapStateToProps)(Recipes)
