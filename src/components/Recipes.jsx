@@ -45,6 +45,7 @@ function Recipes(props) {
 
         }
         setRecipes(result);
+        console.log("Hello")
     };
     getPossibleRecipe();
     }, [inventory, allRecipe]);
