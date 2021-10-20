@@ -44,8 +44,8 @@ function Authentication(props) {
     return (
         <div>
             <header className="App-header">
-                 <h1>What's for dinner?</h1>
-                 <button onClick={SignIn}>Sign In with Google</button>
+                 <h1 id="welcome-page">What's for dinner?</h1>
+                 <button onClick={SignIn} id="sign-in">Sign In with Google</button>
             </header>
         </div>
     )

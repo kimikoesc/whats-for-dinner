@@ -43,6 +43,8 @@ function Recipes() {
         getPossibleRecipe();
     }, []);
 
+    console.log(filters)
+
     store.dispatch({
         type: "assignAllRecipe",
         item: allRecipe

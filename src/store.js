@@ -8,6 +8,14 @@ const reducer = combineReducers({
     }
     return newState;
     },
+
+    userID: (state = "", action) => {
+        if (action.type === 'assignUser') {
+            state = action.item
+        }
+        return state
+    },
+
     userData: (state = [], action) => {
         let newState = Object.assign([], state);
         if (action.type === 'add') {
@@ -19,6 +27,7 @@ const reducer = combineReducers({
         }
         return newState;
     },
+
     filterOption: (state = {vegan: false, pescatarian: false, flexible: false}, action) => {
         let newState = Object.assign({}, state);
         if (action.type === "updateFilter") {
@@ -32,6 +41,7 @@ const reducer = combineReducers({
         }
         return newState
     },
+
 });
 
 const store = createStore(reducer);

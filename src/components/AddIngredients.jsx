@@ -10,6 +10,8 @@ function AddIngredients() {
            type: "add",
            item: textInput.current.value
        })
+
+       
     };
 
     return (
