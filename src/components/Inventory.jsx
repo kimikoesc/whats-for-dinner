@@ -1,19 +1,35 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import store from '../store'
 import { connect } from "react-redux";
+
+import { doc, updateDoc, arrayRemove } from "@firebase/firestore";
+import db from "../firebase-config";
  
 const mapStateToProps = (state) => {
-    return { userID: state.userID, inventory: state.userData}
+    return { username: state.username, inventory: state.userData}
 };
 
 function Inventory(props) {
-   const { inventory }  = props;
+   const { inventory, username }  = props;
+   const usernameRef = doc(db, 'Users', username);
+
+   const removeFromInventory = async (index, item) => {
+        store.dispatch({
+            type: "remove",
+            index: index
+        })
+        await updateDoc(usernameRef, {
+            Inventory: arrayRemove(item)
+        })
+    };
 
     return (
         <div>
-            {inventory.map((item) => {
+            {inventory.map((item, index) => {
                 return (
-                    <button key={item}>{item}</button>
+                    <span>
+                        <button onClick={() => removeFromInventory(index, item)}>{item}</button>
+                    </span>
                 )
             })}
         </div>

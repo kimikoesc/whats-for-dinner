@@ -1,6 +1,6 @@
 import React, { createRef } from 'react'
 import store from '../store'
-import { doc, updateDoc, arrayUnion, arrayRemove } from "@firebase/firestore";
+import { doc, updateDoc, arrayUnion } from "@firebase/firestore";
 import db from "../firebase-config";
 import { connect } from "react-redux";
 

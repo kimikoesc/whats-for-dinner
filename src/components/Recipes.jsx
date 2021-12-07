@@ -45,7 +45,6 @@ function Recipes(props) {
 
         }
         setRecipes(result);
-        console.log("Hello")
     };
     getPossibleRecipe();
     }, [inventory, allRecipe]);
@@ -54,9 +53,9 @@ function Recipes(props) {
         <div className="recipe">
             <h1> List of Recipes you can make </h1>
             {recipes.map(recipe => (
-                <div className="recipe-container">
-                    <img key={recipes.indexOf(recipe)} src={recipe.Image} alt={recipe.Name}></img>
-                    <h2 key= {recipe.Name} > { recipe.Name }</h2>
+                <div key={recipes.indexOf(recipe)} className="recipe-container">
+                    <img src={recipe.Image} alt={recipe.Name}></img>
+                    <h2> { recipe.Name }</h2>
                     <div className="flexbox">
                         <div className="item">
                             <div className="content">
