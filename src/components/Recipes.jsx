@@ -25,29 +25,24 @@ function Recipes(props) {
     const getPossibleRecipe = () => {
         let result = [];
         for (let i = 0; i < allRecipe.length; i++) {
-            if (filters.vegan === true && filters.pescatarian === true) {
-                if (allRecipe[i].Ingredients.every(item => inventory.includes(item)) && allRecipe[i].Vegan == 1) {
+            if (filters.vegan === true) {
+                if (allRecipe[i].Ingredients.every(item => inventory.includes(item)) && allRecipe[i].Vegan === 1) {
                     result.push(allRecipe[i])
                 } 
-            }
-
-            if (filters.vegan === true && filters.pescatarian === false) {
-                if (allRecipe[i].Ingredients.every(item => inventory.includes(item)) && allRecipe[i].Vegan == 1 && allRecipe[i].Pescatarian == 0) {
+            } else if (filters.pescatarian === true) {
+                if (allRecipe[i].Ingredients.every(item => inventory.includes(item)) && allRecipe[i].Pescatarian === 1) {
                     result.push(allRecipe[i])
                 } 
-            }
-
-            else {
+            } else {
                 if (allRecipe[i].Ingredients.every(item => inventory.includes(item))) {
                     result.push(allRecipe[i])
                 } 
             }
-
         }
         setRecipes(result);
     };
     getPossibleRecipe();
-    }, [inventory, allRecipe]);
+    }, [inventory, allRecipe, filters]);
 
     return (
         <div className="recipe">

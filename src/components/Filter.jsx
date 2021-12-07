@@ -9,10 +9,6 @@ function Filter() {
         })
     };
 
-    useEffect(() => {
-        console.log(store.getState().filterOption)
-    });
-
     return (
         <div>
             <div className="special-diet">
