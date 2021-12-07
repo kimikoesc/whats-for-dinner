@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { getAuth, signOut } from "firebase/auth";
 import styled from "styled-components";
 import * as FaIcons from "react-icons/fa";
@@ -10,6 +10,11 @@ import store from '../store'
 import '../styles/App.css';
 import { doc, setDoc, getDoc } from '@firebase/firestore';
 import db from "../firebase-config";
+import { connect } from "react-redux";
+
+const mapStateToProps = (state) => {
+    return { username: state.username}
+};
 
 function Home(props) {
     const [sidebar, setSidebar] = useState(false);
@@ -89,4 +94,4 @@ function Home(props) {
     )
 }
 
-export default Home
+export default connect(mapStateToProps)(Home)

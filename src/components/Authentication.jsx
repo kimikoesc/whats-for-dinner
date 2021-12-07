@@ -6,11 +6,11 @@ import store from "../store";
 import { connect } from "react-redux";
  
 const mapStateToProps = (state) => {
-    return { userID: state.userID, userData: state.userData}
+    return { username: state.username, userData: state.userData}
 };
 
 function Authentication(props) {
-    const { setUsername, userID, userData } = props;
+    const { username } = props;
 
     const SignIn = () => {
         const provider = new GoogleAuthProvider();
@@ -20,14 +20,14 @@ function Authentication(props) {
             const credential = GoogleAuthProvider.credentialFromResult(result);
             const token = credential.accessToken;
             const user = result.user;
-            setUsername(user.displayName);
+            store.dispatch({
+                type: "assignUsername",
+                item: user.displayName
+            })
         }).catch((error) => {
             console.log(error)
         });
     }
-
-    console.log(userID);
-    console.log(userData);
 
     useEffect(() => {
         const getUserData = async (usr) => {
@@ -47,10 +47,10 @@ function Authentication(props) {
                 await setDoc(docRef, payload);
             } 
         }
-        if (userID) {
-            getUserData(userID);
+        if (username) {
+            getUserData(username);
         }
-    }, [userID]);
+    }, [username]);
 
     
 

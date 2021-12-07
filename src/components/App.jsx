@@ -8,13 +8,12 @@ import store from "../store"
 
 function App() {
   const [isUserSignedIn, setIsUserSignedIn] = useState(false);
-  const [username, setUsername] = useState("");
 
   getAuth().onAuthStateChanged(user => {
     if (user) {
       setIsUserSignedIn(true)
       store.dispatch({
-        type: "assignUser",
+        type: "assignUsername",
         item: user.displayName
       })
     } else {
@@ -26,14 +25,14 @@ function App() {
     document.body.style.background = "white";
     return (
         <div className="home">
-        <Home username={username}/>
+        <Home/>
         <Recipes/>
         </div>
     )
   } else {
     return (
         <div className="welcome">
-        <Authentication setUsername={setUsername}/>
+        <Authentication/>
         </div>
     )
   }

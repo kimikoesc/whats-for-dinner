@@ -26,13 +26,13 @@ function Recipes(props) {
         let result = [];
         for (let i = 0; i < allRecipe.length; i++) {
             if (filters.vegan === true && filters.pescatarian === true) {
-                if (allRecipe[i].Ingredients.every(item => inventory.includes(item)) && allRecipe[i].Vegan === 1) {
+                if (allRecipe[i].Ingredients.every(item => inventory.includes(item)) && allRecipe[i].Vegan == 1) {
                     result.push(allRecipe[i])
                 } 
             }
 
             if (filters.vegan === true && filters.pescatarian === false) {
-                if (allRecipe[i].Ingredients.every(item => inventory.includes(item)) && allRecipe[i].Vegan === 1 && allRecipe[i].Pescatarian === 0) {
+                if (allRecipe[i].Ingredients.every(item => inventory.includes(item)) && allRecipe[i].Vegan == 1 && allRecipe[i].Pescatarian == 0) {
                     result.push(allRecipe[i])
                 } 
             }
