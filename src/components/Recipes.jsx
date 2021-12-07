@@ -48,7 +48,17 @@ function Recipes(props) {
                 })
 
                 if (ingredientsList.length < 3) {
-                    result.push(allRecipe[i])
+                    if (filters === "vegan") {
+                        if (allRecipe[i].Vegan === 1) {
+                            result.push(allRecipe[i])
+                        } 
+                    } else if (filters === "pescatarian") {
+                        if (allRecipe[i].Pescatarian === 1) {
+                            result.push(allRecipe[i])
+                        } 
+                    } else {     
+                        result.push(allRecipe[i])
+                    } 
                 }
             }
         }
