@@ -41,6 +41,7 @@ function Home(props) {
         align-items: center;
         position: fixed;
         z-index: 500;
+        margin-top: -21px;
     `
     const NavIcon = styled.div`
         margin-left: 2rem;
@@ -51,6 +52,7 @@ function Home(props) {
         align-items: center;
     `
     const SideBarNav = styled.nav`
+        overflow-y: scroll;
         background: #15171c;
         width: 350px;
         height: 100vh;
@@ -66,28 +68,28 @@ function Home(props) {
     `;
 
     return (
-        <div className="Home">
+        <div id="navbar">
         <IconContext.Provider value={{ color: '#fff' }}>
-        <Nav>
-            <NavIcon>
-            <FaIcons.FaBars onClick={showSidebar}/>
-            </NavIcon>
-            <h1 id="title">What's for dinner?</h1>
-        </Nav>
-        <SideBarNav sidebar={sidebar}>
-            <SideBarWrap>
+            <Nav>
                 <NavIcon>
-                    <AiIcons.AiOutlineClose onClick={showSidebar}/>
+                <FaIcons.FaBars onClick={showSidebar}/>
                 </NavIcon>
-                <h1 id="greeting">Hello, {username}</h1>
-                {HomeData.map((item, index) => {
-                    return <SubMenu item={item} key={index} />;
-                })}
-                <button id="logout" onClick={ logout }>Sign Out</button>
-            </SideBarWrap>
-        </SideBarNav>
+                <h1 id="title">What's for dinner?</h1>
+            </Nav>
+            <SideBarNav sidebar={sidebar}>
+                <SideBarWrap>
+                    <NavIcon>
+                        <AiIcons.AiOutlineClose onClick={showSidebar}/>
+                    </NavIcon>
+                    <h1 id="greeting">Hello, {username}</h1>
+                    {HomeData.map((item, index) => {
+                        return <SubMenu item={item} key={index} />;
+                    })}
+                    <button id="logout" onClick={ logout }>Sign Out</button>
+                </SideBarWrap>
+            </SideBarNav>
        </IconContext.Provider>
-        </div>
+       </div>
     )
 }
 

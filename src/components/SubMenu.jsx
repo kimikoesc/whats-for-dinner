@@ -24,10 +24,11 @@ const SidebarLabel = styled.span`
 `;
 
 const Dropdown = styled.div`
+  margin-left: -10px;
   background: #414757;
-  height: 60px;
-  padding-left: 3rem;
   display: flex;
+  padding: 20px;
+  justify-content: center;
   align-items: center;
   text-decoration: none;
   color: #f5f5f5;

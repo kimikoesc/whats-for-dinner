@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import '../styles/App.css';
 import store from '../store';
 import { connect } from "react-redux";
 
@@ -8,15 +9,13 @@ const mapStateToProps = (state) => {
 
 
 function Filter(props) {
-    const { flexible, filter } = props
+    const { flexible } = props
 
     const addFilter = (e) => {
         store.dispatch({
             type: "updateFilter",
             item: e.target.value,
         })
-
-        console.log(filter)
     };
 
     const setFlexibility = (e) => {
@@ -27,9 +26,9 @@ function Filter(props) {
     };
 
     return (
-        <div>
+        <div id="advanced-features">
             <div className="special-diet">
-                <span>Special Diet: </span>
+                <p>Special Diet: </p>
                 <input type="radio" id="none" name="input" value="none" onClick={addFilter}/>
                 <label>None</label>
                 <input type="radio" id="vegan" name="input" value="vegan" onClick={addFilter}/>
@@ -38,7 +37,7 @@ function Filter(props) {
                 <label>Pescatarian</label>
             </div>
             <div className="flexible">
-                <span>Flexibility: </span>
+                <p>Flexibility: </p>
                 <input type="checkbox" id="flexible" name="flexible" value="flexible" onClick={setFlexibility}/>
                 <label> I can buy 1 or 2 missing items </label>
             </div>
