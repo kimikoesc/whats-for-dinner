@@ -6,13 +6,13 @@ import store from "../store";
 import { connect } from "react-redux";
 
 const mapStateToProps = (state) => {
-    return { userID: state.userID, inventory: state.userData, filters: state.filterOption}
+    return {inventory: state.userData, filters: state.filterOption, flexible: state.flexible}
   };
 
 function Recipes(props) {
     const [allRecipe, setAllRecipe] = useState([]);
     const [recipes, setRecipes] = useState([]);
-    const { inventory, filters, userID } = props;
+    const { inventory, filters, flexible } = props;
 
     useEffect(() => {
         onSnapshot(collection(db, "Recipes"), (snapshot) => {
@@ -25,18 +25,31 @@ function Recipes(props) {
     const getPossibleRecipe = () => {
         let result = [];
         for (let i = 0; i < allRecipe.length; i++) {
-            if (filters.vegan === true) {
-                if (allRecipe[i].Ingredients.every(item => inventory.includes(item)) && allRecipe[i].Vegan === 1) {
-                    result.push(allRecipe[i])
-                } 
-            } else if (filters.pescatarian === true) {
-                if (allRecipe[i].Ingredients.every(item => inventory.includes(item)) && allRecipe[i].Pescatarian === 1) {
-                    result.push(allRecipe[i])
-                } 
+            if (!flexible) {
+                if (filters === "vegan") {
+                    if (allRecipe[i].Ingredients.every(item => inventory.includes(item)) && allRecipe[i].Vegan === 1) {
+                        result.push(allRecipe[i])
+                    } 
+                } else if (filters === "pescatarian") {
+                    if (allRecipe[i].Ingredients.every(item => inventory.includes(item)) && allRecipe[i].Pescatarian === 1) {
+                        result.push(allRecipe[i])
+                    } 
+                } else {
+                    if (allRecipe[i].Ingredients.every(item => inventory.includes(item))) {
+                        result.push(allRecipe[i])
+                    } 
+                }
             } else {
-                if (allRecipe[i].Ingredients.every(item => inventory.includes(item))) {
+                let ingredientsList = [];
+                allRecipe[i].Ingredients.forEach(item => {
+                    if (!inventory.includes(item)) {
+                        ingredientsList.push(item)
+                    }
+                })
+
+                if (ingredientsList.length < 3) {
                     result.push(allRecipe[i])
-                } 
+                }
             }
         }
         setRecipes(result);

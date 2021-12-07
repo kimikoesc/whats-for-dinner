@@ -28,18 +28,18 @@ const reducer = combineReducers({
         return state
     },
 
-    filterOption: (state = {vegan: false, pescatarian: false, flexible: false}, action) => {
-        let newState = Object.assign({}, state);
-        if (action.type === "updateFilter") {
-           if (action.key === "vegan") {
-            newState.vegan = !newState.vegan
-           } else if (action.key === "pescatarian") {
-            newState.pescatarian = !newState.pescatarian
-           } else if (action.key === "flexible") {
-            newState.flexible = !newState.flexible
-           }
+    filterOption: (state = "", action) => {
+        if (action.type === 'updateFilter') {
+            state = action.item
         }
-        return newState
+        return state
+    },
+
+    flexible: (state = false, action) => {
+        if (action.type === 'updateFlexibility') {
+            state = action.item
+        }
+        return state
     },
 
 });
