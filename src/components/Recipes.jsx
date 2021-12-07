@@ -50,9 +50,6 @@ function Recipes(props) {
     getPossibleRecipe();
     }, [inventory, allRecipe]);
 
-    console.log(allRecipe);
-    console.log(recipes);
-
     return (
         <div className="recipe">
             <h1> List of Recipes you can make </h1>

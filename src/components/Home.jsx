@@ -6,10 +6,7 @@ import * as AiIcons from "react-icons/ai";
 import { HomeData } from "./Home-data";
 import SubMenu from "./SubMenu";
 import { IconContext } from 'react-icons/lib';
-import store from '../store'
 import '../styles/App.css';
-import { doc, setDoc, getDoc } from '@firebase/firestore';
-import db from "../firebase-config";
 import { connect } from "react-redux";
 
 const mapStateToProps = (state) => {
