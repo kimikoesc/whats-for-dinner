@@ -2,7 +2,6 @@ import { onSnapshot, collection } from '@firebase/firestore';
 import React, { useState, useEffect } from 'react'
 import db from "../firebase-config";
 import "../styles/Recipes.css";
-import store from "../store";
 import { connect } from "react-redux";
 
 const mapStateToProps = (state) => {
