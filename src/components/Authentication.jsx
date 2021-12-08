@@ -20,39 +20,37 @@ function Authentication(props) {
             const credential = GoogleAuthProvider.credentialFromResult(result);
             const token = credential.accessToken;
             const user = result.user;
-            store.dispatch({
-                type: "assignUsername",
-                item: user.displayName
-            })
+            // store.dispatch({
+            //     type: "assignUsername",
+            //     item: user.displayName
+            // })
         }).catch((error) => {
             console.log(error)
         });
     }
 
-    useEffect(() => {
-        const getUserData = async (usr) => {
-            const docRef = doc(db, "Users", usr);
-            const docSnap = await getDoc(docRef);
+    // useEffect(() => {
+    //     const getUserData = async (usr) => {
+    //         const docRef = doc(db, "Users", usr);
+    //         const docSnap = await getDoc(docRef);
 
-            if (docSnap.exists()) {
-            store.dispatch({
-                type: "assign",
-                item: docSnap.data().Inventory
-            })
-            } else {
-                const payload = {
-                    Name: usr,
-                    Inventory: []
-                }
-                await setDoc(docRef, payload);
-            } 
-        }
-        if (username) {
-            getUserData(username);
-        }
-    }, [username]);
-
-    
+    //         if (docSnap.exists()) {
+    //         store.dispatch({
+    //             type: "assign",
+    //             item: docSnap.data().Inventory
+    //         })
+    //         } else {
+    //             const payload = {
+    //                 Name: usr,
+    //                 Inventory: []
+    //             }
+    //             await setDoc(docRef, payload);
+    //         } 
+    //     }
+    //     if (username) {
+    //         getUserData(username);
+    //     }
+    // }, [username]);
 
     return (
         <div>
