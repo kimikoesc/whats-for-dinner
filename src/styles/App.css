@@ -40,3 +40,12 @@ button:hover {
 #advanced-features {
   font-size: 15px;
 }
+
+.add-error {
+  font-size: 14px;
+  color: red;
+}
+
+.add-confirmed {
+  font-size: 14px;
+}
