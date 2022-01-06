@@ -69,7 +69,9 @@ function Recipes(props) {
     return (
         <div className="recipe">
             <h1> List of Recipes you can make </h1>
-            {recipes.map(recipe => (
+            { recipes.length > 1 ? 
+                <div>
+                {recipes.map(recipe => (
                 <div key={recipes.indexOf(recipe)} className="recipe-container">
                     <img src={recipe.Image} alt={recipe.Name}></img>
                     <h2> { recipe.Name }</h2>
@@ -102,6 +104,12 @@ function Recipes(props) {
                     </div>                    
                 </div>
             ))}
+                </div>
+                : 
+                <div className="error-message">
+                    <p> No available recipes, please add more ingredients to your inventory! </p>
+                </div>
+            }
         </div>
     )
 }
