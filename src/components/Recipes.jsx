@@ -26,22 +26,22 @@ function Recipes(props) {
         for (let i = 0; i < allRecipe.length; i++) {
             if (!flexible) {
                 if (filters === "vegan") {
-                    if (allRecipe[i].Ingredients.every(item => inventory.includes(item)) && allRecipe[i].Vegan === 1) {
+                    if (allRecipe[i].Ingredients.every(item => inventory.includes(item.toLowerCase())) && allRecipe[i].Vegan === 1) {
                         result.push(allRecipe[i])
                     } 
                 } else if (filters === "pescatarian") {
-                    if (allRecipe[i].Ingredients.every(item => inventory.includes(item)) && allRecipe[i].Pescatarian === 1) {
+                    if (allRecipe[i].Ingredients.every(item => inventory.includes(item.toLowerCase())) && allRecipe[i].Pescatarian === 1) {
                         result.push(allRecipe[i])
                     } 
                 } else {
-                    if (allRecipe[i].Ingredients.every(item => inventory.includes(item))) {
+                    if (allRecipe[i].Ingredients.every(item => inventory.includes(item.toLowerCase()))) {
                         result.push(allRecipe[i])
                     } 
                 }
             } else {
                 let ingredientsList = [];
                 allRecipe[i].Ingredients.forEach(item => {
-                    if (!inventory.includes(item)) {
+                    if (!inventory.includes(item.toLowerCase())) {
                         ingredientsList.push(item)
                     }
                 })
@@ -69,7 +69,7 @@ function Recipes(props) {
     return (
         <div className="recipe">
             <h1> List of Recipes you can make </h1>
-            { recipes.length > 1 ? 
+            { recipes.length > 0 ? 
                 <div>
                 {recipes.map(recipe => (
                 <div key={recipes.indexOf(recipe)} className="recipe-container">
