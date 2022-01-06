@@ -16,7 +16,7 @@ function AddIngredients(props) {
     const addToInventory = async () => {
        store.dispatch({
            type: "add",
-           item: textInput.current.value
+           item: textInput.current.value.toLowerCase()
        })
        await updateDoc(usernameRef, {
            Inventory: arrayUnion(textInput.current.value)
